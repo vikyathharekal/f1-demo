@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: pitstop-duration-optimizer
-          image: <+artifact.image>
+          image: {{.Values.image}}
           ports:
             - containerPort: 7001
           resources:

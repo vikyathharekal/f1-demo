@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: driver-analytics
-          image: <+artifact.image>
+          image: {{.Values.image}}
           ports:
             - containerPort: 7002
           env:
