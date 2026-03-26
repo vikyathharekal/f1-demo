@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: performance-analytics
+  labels:
+    app: performance-analytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: performance-analytics
+  template:
+    metadata:
+      labels:
+        app: performance-analytics
+    spec:
+      containers:
+        - name: performance-analytics
+          image: <+artifact.image>
+          ports:
+            - containerPort: 7003
+          env:
+            - name: PITSTOP_SERVICE_URL
+              value: "http://pitstop-duration-optimizer:7001"
+            - name: DRIVER_SERVICE_URL
+              value: "http://driver-analytics:7002"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 7003
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 7003
+            initialDelaySeconds: 5
+            periodSeconds: 10
