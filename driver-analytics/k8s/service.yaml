@@ -5,6 +5,7 @@ metadata:
 spec:
   selector:
     app: driver-analytics
+    harness.io/color: blue
   ports:
     - port: 7002
       targetPort: 7002
